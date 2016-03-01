@@ -23,6 +23,11 @@ default['munge']['key']['data_bag'] = 'munge'
 default['munge']['key']['item'] = 'key'
 ```
 
+### Encrypted Data Bags
+
+To create a chef encrypted data bag follow the instructions by Atomic Penguin
+[1](http://atomic-penguin.github.io/blog/2013/06/07/HOWTO-test-kitchen-and-encrypted-data-bags/)
+
 # Contributions
 =====================
 
