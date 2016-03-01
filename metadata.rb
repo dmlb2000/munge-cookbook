@@ -15,4 +15,5 @@ supports 'ubuntu'
 supports 'fedora'
 
 depends 'yum-epel'
+depends 'dnf'
 depends 'apt'
