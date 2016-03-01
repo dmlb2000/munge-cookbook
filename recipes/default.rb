@@ -23,10 +23,14 @@ when 'rhel'
   include_recipe 'yum-epel'
 end
 
-user 'munge'
-group 'munge'
+directory '/var/log' do
+  mode '0755'
+end
 
 package 'munge'
+
+user 'munge'
+group 'munge'
 
 data_bag = node['munge']['key']['data_bag']
 item = node['munge']['key']['item']
@@ -40,6 +44,10 @@ when 'vault'
   chef_gem 'chef-vault'
   require 'chef-vault'
   key_hash = chef_vault_item(data_bag, item).to_hash
+else
+  key_hash = {
+    mungekey: 'krky2BJp7/Km9QbusF4/MRYaQUWjlRXvPkue5qURbbo='
+  }
 end
 
 template 'mungekey.ascii' do
@@ -57,7 +65,7 @@ end
 bash 'create-munge-key' do
   user 'root'
   cwd '/tmp'
-  code 'base64 -d < /etc/munge/munge.key.base64 > /etc/munge/munge.key'
+  code 'base64 -d -i < /etc/munge/munge.key.base64 > /etc/munge/munge.key'
   action :nothing
 end
 

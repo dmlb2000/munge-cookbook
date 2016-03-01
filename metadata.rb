@@ -8,5 +8,11 @@ issues_url 'https://github.com/dmlb2000/munge-cookbook/issues'
 source_url 'https://github.com/dmlb2000/munge-cookbook'
 version '0.1.0'
 
+supports 'rhel'
+supports 'centos'
+supports 'scientific'
+supports 'ubuntu'
+supports 'fedora'
+
 depends 'yum-epel'
 depends 'apt'
