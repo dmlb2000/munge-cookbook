@@ -22,3 +22,11 @@ Data bag name and item in the data_bag to find the munge key.
 default['munge']['key']['data_bag'] = 'munge'
 default['munge']['key']['item'] = 'key'
 ```
+
+# Contributions
+=====================
+
+1. fork it on github
+2. make a merge request
+3. we'll talk about it
+
