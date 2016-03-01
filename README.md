@@ -1,4 +1,6 @@
 # Munge Cookbook
+==========================
+[![Build Status](https://travis-ci.org/dmlb2000/munge-cookbook.svg?branch=master)](https://travis-ci.org/dmlb2000/munge-cookbook)
 
 Manage the munge service and keys in a cookbook.
 
