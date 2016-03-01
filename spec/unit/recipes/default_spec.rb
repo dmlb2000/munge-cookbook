@@ -9,9 +9,15 @@ require 'spec_helper'
 describe 'munge::default' do
   context 'When all attributes are default, on an unspecified platform' do
     before do
-      Chef::EncryptedDataBagItem.stub(:load).with('munge', 'key', 'secret').and_return(
-        mungekey: 'aRz24Kt4tAt2Fb5R1m3iqSNNpxFZKBsySWVMxM2phOc=',
-      )
+      Chef::Config['encrypted_data_bag_secret'] = '/tmp/secretfile'
+      Chef::EncryptedDataBagItem.stub(:load_secret)
+                                .with('/tmp/secretfile')
+                                .and_return('secret')
+      Chef::EncryptedDataBagItem.stub(:load)
+                                .with('munge', 'key', 'secret')
+                                .and_return(
+                                  mungekey: 'bbwikV9x/bMmaT81rCaQiw=='
+                                )
     end
     let(:chef_run) do
       runner = ChefSpec::ServerRunner.new
