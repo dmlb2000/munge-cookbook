@@ -9,3 +9,4 @@ source_url 'https://github.com/dmlb2000/munge-cookbook'
 version '0.1.0'
 
 depends 'yum-epel'
+depends 'apt'

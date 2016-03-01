@@ -16,7 +16,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-case node[:platform_family]
+case node['platform_family']
 when 'debian'
   include_recipe 'apt'
 when 'rhel'
@@ -35,23 +35,23 @@ data_bag_secret = Chef::Config['encrypted_data_bag_secret']
 case node['munge']['key']['type']
 when 'data_bag'
   secret_key = Chef::EncryptedDataBagItem.load_secret(data_bag_secret)
-  key_item = Chef::EncryptedDataBagItem.load(data_bag, item, secret_key)
+  key_hash = Chef::EncryptedDataBagItem.load(data_bag, item, secret_key).to_hash
 when 'vault'
   chef_gem 'chef-vault'
   require 'chef-vault'
-  key_item = chef_vault_item(data_bag, item)
+  key_hash = chef_vault_item(data_bag, item).to_hash
 end
 
 template 'mungekey.ascii' do
   user 'munge'
   group 'munge'
-  mode "0400"
+  mode '0400'
   path '/etc/munge/munge.key.base64'
   notifies :run, 'bash[create-munge-key]'
   source 'mungekey.erb'
-  variables({
-    :data => key_hash['mungekey']
-  })
+  variables(
+    data: key_hash['mungekey']
+  )
 end
 
 bash 'create-munge-key' do
